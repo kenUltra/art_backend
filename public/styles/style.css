@@ -1,0 +1,137 @@
+*,
+*::after,
+*::before {
+	padding: 0;
+	margin: 0;
+	font-family: "SF Pro Text", "Myriad Set Pro", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+html,
+body {
+	height: 100%;
+	overflow: hidden auto;
+	scroll-behavior: smooth;
+}
+:root {
+	color-scheme: light dark;
+	--logo-color: color(display-p3 0 0 0);
+}
+:root {
+	--zero-plc: 0;
+	--auto-size: auto;
+	--max-size: 100%;
+}
+@media (prefers-color-scheme: dark) {
+	:root {
+		--logo-color: color(display-p3 1 1 1);
+	}
+}
+.right,
+.logo-ctx {
+	position: relative;
+}
+.logo-company,
+.list-nav,
+.nav-bar .nav-container {
+	display: flex;
+	align-items: center;
+}
+.nav-container {
+	width: 830px;
+	height: 100%;
+}
+.link-container,
+.right,
+.nav-container {
+	margin: var(--zero-plc) var(--auto-size);
+}
+.logo-company,
+.art-lk,
+.header-msk {
+	position: absolute;
+	inset: 0;
+}
+.logo {
+	flex: 0 1 125px;
+}
+.nav-bar,
+.logo-ctx {
+	height: 40px;
+}
+.logo-company {
+	justify-content: center;
+}
+.logo-company > svg {
+	width: 120px;
+	scale: 1.5;
+}
+.dark-mode-ctx .logo-company > svg {
+	fill: var(--logo-color);
+}
+.art-lk {
+	width: 70px;
+	left: var(--middle-pos);
+	right: unset;
+	transform: translate(-var(--middle-pos), 0%);
+	cursor: pointer;
+	z-index: 2;
+}
+.link-container {
+	flex: 0 1 450px;
+}
+.list-nav {
+	justify-content: center;
+}
+.sign-btn {
+	flex: 0 1 135px;
+}
+.auth-wrap > button {
+	width: 100%;
+	padding: 7px 20px;
+}
+.header {
+	position: sticky;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 520;
+}
+.footer-wrap {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 520;
+}
+.right {
+	width: 570px;
+	height: 25px;
+	text-align: center;
+}
+.lw-bx {
+	font-size: 0;
+}
+.lw-bx > p {
+	font-size: 12px;
+	font-weight: lighter;
+}
+.lw-bx {
+	--middle-pos: 50%;
+	position: absolute;
+	top: var(--middle-pos);
+	left: var(--middle-pos);
+	width: 100%;
+	transform: translate(calc(-1 * var(--middle-pos)), calc(-1 * var(--middle-pos)));
+}
+@media only screen and (max-width: 880px) {
+	.right {
+		width: 500px;
+	}
+}
+@media only screen and (max-width: 520px) {
+	.right {
+		width: 270px;
+	}
+	.lw-bx > p {
+		font-size: 11px;
+	}
+}

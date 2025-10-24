@@ -1,0 +1,16 @@
+.section {
+	position: absolute;
+}
+.section {
+	inset: 0;
+}
+.landing-page {
+	width: var(--max-size);
+	height: var(--max-size);
+}
+.landing-page {
+	--center-place: center;
+	display: flex;
+	align-items: var(--center-place);
+	justify-content: var(--center-place);
+}

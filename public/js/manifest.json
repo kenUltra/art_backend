@@ -1,0 +1,27 @@
+{
+	"dir": "ltr",
+	"lang": "en-US",
+	"name": "Art Inc",
+	"scope": "/",
+	"display": "standalone",
+	"start_url": "./",
+	"short_name": "Art",
+	"theme_color": "#ffffff",
+	"description": "Art backend ",
+	"orientation": "Portrait",
+	"background_color": "#000000",
+	"related_applications": [],
+	"prefer_related_applications": false,
+	"icons": [
+		{
+			"src": "../assets/logo/icons/Art_inc_128.png",
+			"sizes": "128x128",
+			"type": "image/png"
+		},
+		{
+			"src": "../assets/logo/icons/Art_inc.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	]
+}

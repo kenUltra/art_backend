@@ -17,10 +17,10 @@ const getUsers = async (req, res) => {
 	}
 };
 const creatUser = async (req, res) => {
-	const { firstName, lastName, userName, email, age, gender, password } = req.body;
+	const { firstName, lastName, userName, email, age, gender, password, hostOS, userHardware } = req.body;
 	const alias = userName.trim().replaceAll(" ", "_");
 
-	if (!firstName || !lastName || !userName || !email || !password || !age || !gender) {
+	if (!firstName || !lastName || !userName || !email || !password || !age || !gender || !hostOS || !userHardware) {
 		return res.status(403).json({ message: "Not allowd to continue", error: "Can't procces until you fill the required data" });
 	}
 	if (password.length <= 6) {
@@ -56,6 +56,8 @@ const creatUser = async (req, res) => {
 			password: valueHashed,
 			age: age,
 			gender: gender,
+			userOS: hostOS,
+			hostHardware: userHardware
 		});
 
 		const userMade = await userModel.findOne({ email: email });

@@ -13,6 +13,10 @@ const employee = new schema(
 			type: Number,
 			required: true,
 		},
+		interset: {
+			type: Array,
+			default: [],
+		},
 		hiredDate: {
 			type: Date,
 			required: true,
@@ -29,7 +33,7 @@ const employee = new schema(
 		currency: {
 			type: String,
 			required: [true, "You need to provide the currency that is suited to you"],
-			emun: ["USB", "EUR", "GDP"],
+			emun: ["USD", "EUR", "GDP"],
 		},
 		companyName: {
 			type: String,

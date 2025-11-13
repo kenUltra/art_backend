@@ -25,6 +25,7 @@ const postMessage = async (req, res) => {
 	if (!userID) return res.status(401).json({ mesage: "A reference is required to make it happen" });
 
 	if (!message || isPublic == undefined || isPublic == null) return res.status(401).json({ message: "Most of the value must are needed to make it happen" });
+	if (message.length <= 3) return res.status(409).json({ message: "The post the you submited is too short" });
 	try {
 		const findUser = await userModel.findOne({ _id: userID }, { post: 1, userName: 1, firstName: 1, lastName: 1 });
 

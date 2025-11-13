@@ -72,6 +72,23 @@ const user = new Schema(
 			ref: "refreshToken",
 			index: true,
 		},
+		userOS: {
+			type: String,
+			required: [true, "OS is required"],
+		},
+		hostHardware: {
+			type: String,
+			required: [true, "Media type is required"],
+		},
+		listHardWareLog: {
+			type: Object,
+			deviceType: {
+				type: String,
+			},
+			dateLoging: {
+				type: Date,
+			},
+		},
 	},
 	{ timeseries: true }
 );

@@ -70,8 +70,8 @@ const getEmployee = async (req, res) => {
 	if (!id) return res.status(403).json({ message: "Must have an id to continue" });
 	try {
 		const searchPerson = await workdModel.findById(id).populate("users");
-		if (!searchPerson) res.status(401).json({ message: "The user is not founded" });
-		res.status(200).json({ message: "Hello ", employeeDetail: searchPerson });
+		if (!searchPerson) return res.status(304).json({ message: "No employee value", employeeDetail: null });
+		res.status(200).json({ message: "Check out you employee value ", employeeDetail: searchPerson });
 	} catch (err) {
 		res.status(500).json({ message: "The server is not responding", error: err });
 	}

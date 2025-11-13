@@ -5,8 +5,9 @@ const userModel = require("../model/user.cjs");
 const tokenModel = require("../model/token.cjs");
 
 const loging = async (req, res) => {
-	const { email, password } = req.body;
+	const { email, password, currentOS } = req.body;
 	if (!email || !password) return res.status(400).json({ message: "Both email and password are required to continue" });
+	if (!currentOS) return res.status(401).json({ message: "Something is missing" });
 	try {
 		const userFounded = await userModel.findOne({ email: email });
 
@@ -32,6 +33,17 @@ const loging = async (req, res) => {
 
 		userFounded.updateOne({ $set: { token: userAccessKey._id } });
 		userFounded.save();
+		if (currentOS !== userFounded.userOS) {
+			userFounded.updateOne({
+				$pull: {
+					listHardWareLog: {
+						deviceType: currentOS,
+						dateLoging: expiryDates.getDate(),
+					},
+				},
+			});
+			userFounded.save();
+		}
 
 		res.cookie("token", refreshToken, { httpOnly: true, sameSite: "None", secure: true, maxAge: 24 * 60 * 60 * 1000 });
 
@@ -53,7 +65,7 @@ const logout = async (req, res) => {
 			return res.status(204).json({ messsage: "the token wasn't founded" });
 		}
 		await userModel.updateOne({ _id: searchToken.userId._id }, { $set: { token: null } });
-		await tokenModel.deleteMany({ userId: searchToken.userId });
+		await tokenModel.deleteMany({ userId: searchToken.userId }).exec();
 		res.clearCookie("token", { httpOnly: true, secure: true });
 		res.status(204).json({ message: "See you next time!" });
 	} catch (error) {

@@ -14,6 +14,7 @@ const refreshRoute = require("../routes/refresh.cjs");
 const messageRoute = require("../routes/message.cjs");
 const employeeRoute = require("../routes/employee.cjs");
 const commentRoute = require("../routes/comment.cjs");
+const spendingRoute = require("../routes/spending.cjs");
 // middleware
 const { errorHandler } = require("../middleware/error.cjs");
 const { credential } = require("../middleware/credential.cjs");
@@ -38,7 +39,8 @@ server.use("/api/v1", refreshRoute);
 server.use("/api/v1", userRoute);
 server.use("/api/v1", verifyJWT, employeeRoute);
 server.use("/api/v1", verifyJWT, messageRoute);
-server.use("/api/v1", verifyJWT, commentRoute);
+server.use("/api/v1", commentRoute);
+server.use("/api/v1", spendingRoute);
 
 server.all("*", (req, res) => {
 	const clientAgent = req.headers["user-agent"];

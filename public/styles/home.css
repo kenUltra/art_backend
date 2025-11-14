@@ -9,8 +9,33 @@
 	height: var(--max-size);
 }
 .landing-page {
+	flex-direction: column;
+}
+.landing-page {
 	--center-place: center;
 	display: flex;
 	align-items: var(--center-place);
 	justify-content: var(--center-place);
+}
+.headline-txt > h1 {
+	font-size: 45px;
+}
+.content-txt > p {
+	font-size: 22px;
+}
+@media only screen and (max-width: 775px) {
+	.headline-txt > h1 {
+		font-size: 34px;
+	}
+	.content-txt > p {
+		font-size: 17px;
+	}
+}
+@media only screen and (max-width: 480px) {
+	.headline-txt > h1 {
+		font-size: 25px;
+	}
+	.content-txt > p {
+		font-size: 14px;
+	}
 }

@@ -13,7 +13,10 @@ body {
 }
 :root {
 	color-scheme: light dark;
+	--black-value: color(display-p3 0 0 0);
+	--white-value: color(display-p3 1 1 1);
 	--logo-color: color(display-p3 0 0 0);
+	--mode-cls-btn: color(display-p3 0 0 0);
 }
 :root {
 	--zero-plc: 0;
@@ -23,6 +26,7 @@ body {
 @media (prefers-color-scheme: dark) {
 	:root {
 		--logo-color: color(display-p3 1 1 1);
+		--mode-cls-btn: color(display-p3 1 1 1);
 	}
 }
 .right,
@@ -30,6 +34,7 @@ body {
 	position: relative;
 }
 .logo-company,
+.plc-err,
 .list-nav,
 .nav-bar .nav-container {
 	display: flex;
@@ -49,6 +54,10 @@ body {
 .header-msk {
 	position: absolute;
 	inset: 0;
+}
+.plc-err {
+	justify-content: center;
+	flex-direction: column;
 }
 .logo {
 	flex: 0 1 125px;
@@ -111,20 +120,81 @@ body {
 	font-size: 0;
 }
 .lw-bx > p {
-	font-size: 12px;
+	font-size: 11px;
 	font-weight: lighter;
+}
+.plc-err {
+	inset: 0;
+}
+.lw-bx,
+.plc-err {
+	position: absolute;
 }
 .lw-bx {
 	--middle-pos: 50%;
-	position: absolute;
 	top: var(--middle-pos);
 	left: var(--middle-pos);
 	width: 100%;
 	transform: translate(calc(-1 * var(--middle-pos)), calc(-1 * var(--middle-pos)));
 }
+.auth-wrap > button {
+	position: relative;
+	font-size: 14px;
+	font-weight: bolder;
+	text-transform: uppercase;
+	border: 1px solid;
+	border-radius: 40px;
+	border-color: var(--logo-color);
+	background-color: var(--black-value);
+	cursor: pointer;
+	z-index: 5;
+}
+.auth-wrap > button:hover {
+	color: var(--black-value);
+	border-color: var(--black-value);
+	background-color: var(--logo-color);
+	transition: background-color 320ms ease, color 250ms ease;
+}
+.headline > h2 {
+	font-size: 35px;
+}
+.description-stk > p {
+	font-size: 20px;
+}
+.description-stk {
+	margin-top: 5px;
+}
+@media only screen and (max-width: 850px) {
+	.nav-container {
+		width: 555px;
+	}
+}
 @media only screen and (max-width: 880px) {
 	.right {
 		width: 500px;
+	}
+	.headline > h2 {
+		font-size: 25px;
+	}
+	.description-stk > p {
+		font-size: 17px;
+	}
+}
+@media only screen and (max-width: 570px) {
+	.nav-container {
+		width: 100%;
+		max-width: 95%;
+	}
+	.headline > h2 {
+		font-size: 20px;
+	}
+	.description-stk > p {
+		font-size: 15px;
+	}
+	.description-stk {
+		margin: 0 auto;
+		width: 84%;
+		text-align: center;
 	}
 }
 @media only screen and (max-width: 520px) {

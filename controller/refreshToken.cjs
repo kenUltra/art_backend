@@ -7,7 +7,7 @@ const handleRefreshToken = async (req, res) => {
 	const cookie = req.cookies;
 
 	if (!cookie?.token) {
-		res.status(401).json({ message: "Can't process" });
+		return res.status(401).json({ message: "Can't process" });
 	}
 	try {
 		const userToken = cookie.token;

@@ -18,12 +18,13 @@ const addEmployee = async (req, res) => {
 	if (!uuid) {
 		return res.status(403).json({ message: "Without an identity nothing will happen" });
 	}
-	if (!position || !hiredDate || !salary || !companyName || !currency || !headQuarter || !website) {
+	if (!position || !hiredDate || !salary || !companyName || !currency || !headQuarter || !website || !phoneNumber) {
 		return res.status(401).json({ message: "To continue please add all requied information" });
 	}
-	if (typeof salary !== "number") {
-		return res.status(401).json({ message: "You salary must be a number" });
+	if (typeof salary !== "number" || salary <= 0) {
+		return res.status(401).json({ message: "You salary must be a number not a nevative number" });
 	}
+
 	try {
 		const user = await userModel.findById(uuid);
 		if (!user) {

@@ -37,8 +37,9 @@ server.use("/", homePage);
 server.use("/api/v1", authRoute);
 server.use("/api/v1", refreshRoute);
 server.use("/api/v1", userRoute);
-server.use("/api/v1", verifyJWT, employeeRoute);
-server.use("/api/v1", verifyJWT, messageRoute);
+server.use(verifyJWT);
+server.use("/api/v1", employeeRoute);
+server.use("/api/v1", messageRoute);
 server.use("/api/v1", commentRoute);
 server.use("/api/v1", spendingRoute);
 

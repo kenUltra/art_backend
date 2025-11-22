@@ -8,7 +8,7 @@ employeeRoute.route("/employee").get(roles(userRoles.Executive, userRoles.Manage
 
 employeeRoute.route("/employee/:uuid")
     .get(roles(userRoles.User, userRoles.betaUser), employeeController.getEmployee)
-    .post(roles(userRoles.betaUser, userRoles.Executive, userRoles.Manager), employeeController.addEmployee)
+    .post(roles(userRoles.betaUser,userRoles.User, userRoles.Executive, userRoles.Manager), employeeController.addEmployee)
     .delete(roles(userRoles.Manager, userRoles.Executive), employeeController.deletEmployee)
     .put(roles(userRoles.User, userRoles.betaUser, userRoles.Executive, userRoles.Manager), employeeController.updateCo_Employee);
 

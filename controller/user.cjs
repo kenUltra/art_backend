@@ -57,7 +57,7 @@ const creatUser = async (req, res) => {
 			age: age,
 			gender: gender,
 			userOS: hostOS,
-			hostHardware: userHardware
+			hostHardware: userHardware,
 		});
 
 		const userMade = await userModel.findOne({ email: email });
@@ -83,22 +83,37 @@ const creatUser = async (req, res) => {
 	}
 };
 const updateUserName = async (req, res) => {
-	const uuid = req.params.userid;
+	const uuid = req.params.userId;
 	const { userName } = req.body;
-	if (!uuid) return res.status(401).json({ message: "Can't process your requirest due to some error" });
-	if (userName) return res.status(401).json({ message: "No update will happen if you don't provide anything" });
+
+	if (!uuid) return res.status(401).json({ message: "Something is missing" });
+	if (!userName) return res.status(401).json({ message: "No update will happen if you don't provide anything" });
+	if (userName.length > 15 || userName.length < 3) return res.status(403).json({ message: "The length of the user name typeed is too long or too short" });
 	try {
 		const lookingTarget = await userModel.findById(uuid);
 		if (!lookingTarget) return res.status(403).json({ message: "Can't process cause error occured" });
-		userModel.updateOne({ $set: { userName: userName } });
+		const takenName = await userModel.find({ userName: userName });
+		if (takenName.length > 0) return res.status(409).json({ message: userName + " name is already usesd " });
+		for (const symbol of symbols) {
+			if (userName.includes(symbol)) {
+				blockAction = false;
+				break;
+			}
+			blockAction = true;
+		}
+		const changeSpaceName = "@" + userName.trim().replaceAll(" ", "_");
+		if (!blockAction) {
+			return res.status(403).json({ message: "Don't include any symbole in your user name" });
+		}
+		await userModel.updateOne({ $set: { userName: changeSpaceName } });
 
 		res.status(200).json({ message: "Account updated" });
 	} catch (error) {
-		res.status(500).json({ messsage: "Internal error occured" });
+		res.status(500).json({ messsage: "Internal error occured", error: error.message });
 	}
 };
 const deleteUser = async (req, res) => {
-	const uuid = req.params.userid;
+	const uuid = req.params.userId;
 	if (!uuid) return res.status(405).json({ status: "Failed", content: "Can't do anything" });
 	try {
 		const userToRemove = await userModel.findById(uuid);

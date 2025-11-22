@@ -41,7 +41,7 @@ const postMessage = async (req, res) => {
 			lastName: findUser.lastName,
 			likes: {},
 		});
-		await userModel.updateOne({ _id: userID }, { $push: { post: newMessage } });
+		await userModel.updateOne({ id: userID }, { $push: { post: newMessage } });
 
 		res.status(200).json({ mesage: "Your post is created " });
 	} catch (err) {

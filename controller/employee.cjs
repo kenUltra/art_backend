@@ -22,14 +22,19 @@ const addEmployee = async (req, res) => {
 		return res.status(401).json({ message: "To continue please add all requied information" });
 	}
 	if (typeof salary !== "number" || salary <= 0) {
-		return res.status(401).json({ message: "You salary must be a number not a nevative number" });
+		return res.status(401).json({ message: "Do not use a negative number in a salary box" });
 	}
 
 	try {
+		function changePhone(value) {
+			const rmStr = value.replaceAll("_pth_", " ");
+			return rmStr;
+		}
 		const user = await userModel.findById(uuid);
 		if (!user) {
 			return res.status(404).json({ message: "The user is not founded" });
 		}
+
 		await workdModel.insertMany({
 			position: position,
 			companyName: companyName,
@@ -40,7 +45,7 @@ const addEmployee = async (req, res) => {
 			coworker: [],
 			salary: salary,
 			currency: currency,
-			phoneNumber: phoneNumber,
+			phoneNumber: changePhone(phoneNumber),
 		});
 		res.status(200).json({ message: "Your work status is active", status: "success" });
 	} catch (error) {
@@ -70,11 +75,13 @@ const getEmployee = async (req, res) => {
 	const id = req.params.uuid;
 	if (!id) return res.status(403).json({ message: "Must have an id to continue" });
 	try {
-		const searchPerson = await workdModel.findById(id).populate("users");
-		if (!searchPerson) return res.status(304).json({ message: "No employee value", employeeDetail: null });
+		const searchPerson = await workdModel.findOne({ user: id });
+
+		if (!searchPerson) return res.status(301).json({ message: "No employee value", employeeDetail: null });
+		
 		res.status(200).json({ message: "Check out you employee value ", employeeDetail: searchPerson });
 	} catch (err) {
-		res.status(500).json({ message: "The server is not responding", error: err });
+		res.status(500).json({ message: "The server is not responding", error: err.message });
 	}
 };
 const updateCo_Employee = async (req, res) => {

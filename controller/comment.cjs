@@ -1,5 +1,5 @@
 const commentModel = require("../model/comment.cjs");
-const userMesage = require("../model/message.cjs");
+const messageModel = require("../model/message.cjs");
 const creatorModel = require("../model/user.cjs");
 
 const makeComment = async (req, res) => {
@@ -11,9 +11,9 @@ const makeComment = async (req, res) => {
 
 	if (!refMessage) return res.status(401).json({ message: "Your need to provide a token" });
 	try {
-		const searchUser = await userMesage.findOne({ _id: refMessage });
+		const searchUser = await messageModel.findOne({ _id: refMessage });
 		const getUserName = await creatorModel.findOne({ _id: userRef });
-		// const searchUser = await userMesage.findOne({ user: userRef, _id: refMessage });
+		// const searchUser = await messageModel.findOne({ user: userRef, _id: refMessage });
 		if (!searchUser) return res.status(404).json({ message: "No user founded" });
 		if (!getUserName) return res.status(405).json({ message: "The user is needed" });
 
@@ -57,7 +57,7 @@ const deleteComment = async (req, res) => {
 
 	try {
 		const searchComment = await commentModel.findOne({ _id: commentId });
-		const searchMessage = await userMesage.findOne({ $comment: searchComment });
+		const searchMessage = await messageModel.findOne({ $comment: searchComment });
 
 		if (!searchComment) return res.status(404).json({ messsage: "Stop due to some error" });
 		if (!searchMessage) return res.status(404).json({ message: "The content is not available" });
@@ -85,4 +85,22 @@ const getComment = async (req, res) => {
 		res.status(500).json({ message: "Error happen", error: err.message });
 	}
 };
-module.exports = { makeComment, likeComment, deleteComment, getComment };
+const newName = async (req, res) => {
+	const idUser = req.params.uuid;
+	const oldName = req.body.baseUserName;
+
+	if (!idUser) return res.status(401).json({ message: "Something is missing" });
+	try {
+		const findUser = await creatorModel.findById(idUser);
+		if (!findUser) return res.status(403).json({ message: "Something is missing" });
+		const targetComment = await commentModel.find({ sender: oldName });
+		if (!targetComment) return res.sendStatus(204);
+
+		await commentModel.updateMany({ sender: oldName }, { $set: { sender: findUser.userName } });
+		res.status(200).json({ message: "user name changed" });
+	} catch (err) {
+		res.status(500).json({ error: err.message });
+	}
+};
+
+module.exports = { makeComment, likeComment, deleteComment, getComment, newName };

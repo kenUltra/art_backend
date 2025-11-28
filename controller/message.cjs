@@ -94,5 +94,23 @@ const likeMessage = async (req, res) => {
 		res.status(500).json({ message: "Sorry the server have some issues", error: err });
 	}
 };
+const updateCommentName = async (req, res) => {
+	const uuid = req.params.uuid;
+	if (!uuid) return res.status(401).json({ message: "You can't continue" });
+	try {
+		const currentUser = await userModel.findById({ _id: uuid });
 
-module.exports = { getMessages, postMessage, deleteMessage, likeMessage };
+		if (!currentUser) return res.status(403).json({ message: "You are not allowed to continue" });
+
+		const targetMessage = await messageModel.find({ user: currentUser.id });
+
+		if (!targetMessage) return res.status(403).json({ message: "No post founded" });
+
+		await messageModel.updateMany({ user: currentUser.id }, { userName: currentUser.userName });
+
+		res.status(200).json({ message: "value changed" });
+	} catch (err) {
+		res.status(500).json({ message: "something went wrong", error: err.message });
+	}
+};
+module.exports = { getMessages, postMessage, deleteMessage, likeMessage, updateCommentName };

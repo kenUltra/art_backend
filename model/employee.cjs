@@ -6,13 +6,13 @@ const employee = new schema(
 		position: {
 			type: String,
 			required: true,
-			enum: ["Intern", "Vice President", "Senior Vice president", "CEO", "CFO", "Manager", "Execitive", "Employee"],
+			// enum: ["Intern", "Vice President", "Senior Vice president", "CEO", "CFO", "Manager", "Execitive", "Employee", "Other"],
 			default: "Employee",
 		},
 		phoneNumber: {
-			type: Number,
-			required: true,
-		},
+			type: String,
+			required: [true, "Make sure to user correct phone number"],
+		},	
 		interset: {
 			type: Array,
 			default: [],

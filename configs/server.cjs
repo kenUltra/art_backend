@@ -3,6 +3,7 @@ const path = require("node:path");
 const cors = require("cors");
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const icon = require("serve-favicon");
 const server = express();
 
 const corsOption = require("../middleware/cors.cjs");
@@ -26,6 +27,7 @@ server.use(cors(corsOption));
 
 // used for handling urlencoded data
 server.use(express.urlencoded({ extended: false }));
+server.user(icon(path.join(__dirname, "..", "public", "assets", "logo",  "icons", 'Art_inc_32.png')));
 
 server.use(cookieParser());
 

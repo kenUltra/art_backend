@@ -9,6 +9,8 @@ Routes.route("/comment/:uuid")
     .get(role(userRoles.User, userRoles.Executive), commentController.getComment)
     .post(role(userRoles.User, userRoles.Executive, userRoles.Manager), commentController.makeComment)
     .delete(role(userRoles.Executive, userRoles.User), commentController.deleteComment)
-    .patch(commentController.likeComment);
+    .patch(role(userRoles.betaUser, userRoles.User), commentController.likeComment);
+
+Routes.route('/comment/person/:uuid').patch(commentController.newName);
 
 module.exports = Routes;

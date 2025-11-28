@@ -50,7 +50,6 @@ const user = new Schema(
 		employeeStatus: {
 			type: Schema.Types.ObjectId,
 			ref: "Employee",
-			index: true,
 		},
 		credential: {
 			User: {

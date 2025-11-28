@@ -19,13 +19,16 @@ const getUsers = async (req, res) => {
 const creatUser = async (req, res) => {
 	const { firstName, lastName, userName, email, age, gender, password, hostOS, userHardware } = req.body;
 	const alias = userName.trim().replaceAll(" ", "_");
+	const emailExp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 	if (!firstName || !lastName || !userName || !email || !password || !age || !gender || !hostOS || !userHardware) {
 		return res.status(403).json({ message: "Not allowd to continue", error: "Can't procces until you fill the required data" });
 	}
+	if (!emailExp.test(email)) return res.status(403).json({ message: "Invalid email" });
 	if (password.length <= 6) {
 		return res.status(405).json({ messaage: "The password that you enter is too short,", error: "Please use a longer passsword" });
 	}
+
 	try {
 		let blockAction = true;
 		const passwordData = new UserData(password.trim());

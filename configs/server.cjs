@@ -27,7 +27,7 @@ server.use(cors(corsOption));
 
 // used for handling urlencoded data
 server.use(express.urlencoded({ extended: false }));
-server.use(icon(path.join(__dirname, "..", "public", "assets", "logo",  "icons", 'Art_inc_32.png')));
+server.use(icon(path.join(__dirname, "..", "public", "assets", "logo",  "web", 'Art_icon_smal.png')));
 
 server.use(cookieParser());
 

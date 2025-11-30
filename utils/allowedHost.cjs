@@ -1,2 +1,2 @@
-const allowedSite = ["http://localhost:4100", "http://localhost:4200", "http://127.0.0.1:4200"];
+const allowedSite = ["http://localhost:4000", "http://localhost:4200", "http://127.0.0.1:4200"];
 module.exports = { allowedSite };

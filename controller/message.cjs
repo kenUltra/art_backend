@@ -89,7 +89,7 @@ const likeMessage = async (req, res) => {
 		}
 		await post.save();
 
-		res.status(200).json({ message: "Ok created", likeCounting: post.likes.size });
+		res.status(200).json({ message: "Ok created", likeCounting: post.likes });
 	} catch (err) {
 		res.status(500).json({ message: "Sorry the server have some issues", error: err });
 	}
